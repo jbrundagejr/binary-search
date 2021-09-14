@@ -1,10 +1,26 @@
 function binarySearch(arr, target) {
-  // type your code here
+  if(arr.length === 0) return false
+  const current = Math.floor(arr.length / 2)
+  const currentValue = arr[current]
+  if(currentValue === target) return true
+  const side = currentValue > target ?
+    arr.slice(0, current) : arr.slice(current + 1)
+  return binarySearch(side, target)
 }
 
 // BONUS: MODIFY YOUR CODE TO RETURN THE INDEX OF THE TARGET, -1 IF NOT FOUND
 function binarySearchIndex(arr, target) {
-
+  if (arr.length === 0) return -1
+  const current = Math.floor(arr.length / 2)
+  const currentValue = arr[current]
+  if (currentValue === target) return current
+  if (currentValue > target) {
+    return binarySearchIndex(arr.slice(0, current), target)
+  } else {
+    const idx = binarySearchIndex(arr.slice(current + 1), target)
+    if (idx === -1) return -1
+    return idx + current + 1
+  }
 }
 
 if (require.main === module) {
